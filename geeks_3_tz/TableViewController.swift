@@ -10,7 +10,7 @@ import UIKit
 
 class TableViewController: UIViewController {
 
-    private var users: [String:String] = [:]
+    private var users: [User] = []
     private let idCell = "cell"
 
     @IBOutlet weak var movieTableView: UITableView!
@@ -20,8 +20,7 @@ class TableViewController: UIViewController {
     override func viewDidLoad() {
 
         movieTableView.dataSource = self
-        movieTableView.delegate = self
-//        movieTableView.register(UITableViewCell.self, forCellReuseIdentifier: idCell)
+    
         initData()
         self.title = "My Contacts"
         super.viewDidLoad()
@@ -29,8 +28,20 @@ class TableViewController: UIViewController {
        
     }
     
+    
     private func initData(){
-        
+        users = [
+            User(name: "Bael" , phoneNumber: "+996 507 409317", image: "cp"),
+            User(name: "Azim" , phoneNumber: "+996 507 409317", image: "cp"),
+            User(name: "Rafa" , phoneNumber: "+996 507 409317", image: "cp"),
+            User(name: "Ula" , phoneNumber: "+996 507 409317", image: "cp"),
+            User(name: "Dimn" , phoneNumber: "+996 507 409317", image: "cp"),
+            User(name: "Adi" , phoneNumber: "+996 507 409317", image: "cp"),
+            User(name: "Nur" , phoneNumber: "+996 507 409317", image: "cp"),
+            User(name: "Yus" , phoneNumber: "+996 507 409317", image: "cp"),
+            User(name: "Bek" , phoneNumber: "+996 507 409317", image: "cp"),
+            User(name: "Dos" , phoneNumber: "+996 507 409317", image: "cp"),
+        ]
     }
     
 
@@ -38,40 +49,32 @@ class TableViewController: UIViewController {
 
 }
 
-extension TableViewController: UITableViewDataSource, UITableViewDelegate {
+extension TableViewController: UITableViewDataSource {
     
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        20
+        users.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: idCell)
-//        let cell = tableView.dequeueReusableCell(withIdentifier: idCell, for: indexPath)
-        cell.textLabel?.text = "Bael Ryspekov"
-        cell.detailTextLabel?.text = "+996 507 409 317"
-        cell.imageView?.image = UIImage(named: "cp")
-//        cell.imageView?.layer.cornerRadius = 10
-//        cell.imageView?.layer.borderWidth = 1
-        cell.imageView?.layer.borderColor = UIColor.red.cgColor
-        print("i am create \(indexPath.row)")
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
+
+        cell.textLabel?.text = users[indexPath.row].name
+        cell.detailTextLabel?.text = users[indexPath.row].phoneNumber
+        cell.imageView?.image = UIImage(named: users[indexPath.row].image)
         return cell
        
 
     }
-
-
-
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        print()
-//    }
-
     
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-return 50
-    }
     
     
     }
+struct User {
+    
+    var name: String
+    var phoneNumber: String
+    var image: String
+    
+}
